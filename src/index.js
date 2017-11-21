@@ -5,18 +5,16 @@
 //import claudia rest api wrapper
 import API from 'claudia-api-builder';
 const AWS = require('aws-sdk');
-const TABLE_NAME = "todo";
-
 const api=new API();
-
 const documentClient = new AWS.DynamoDB.DocumentClient();
+const TABLE_NAME=`todo-rohanaonly-${process.env.ENV?process.env.ENV:''}`;
 
-const saveData=async (record)=>{
+const saveData=async (record,userId)=>{
      await documentClient
         .put({
             TableName: TABLE_NAME,
             Item:{
-                key:"rohana-to-do",
+                key:userId,
                 data:record
             }
         })
@@ -24,18 +22,26 @@ const saveData=async (record)=>{
      return record;
 };
 
-
-const toto=async (body)=>{
-    return saveData(body);
+const getData=async (userId)=>{
+    const data = await documentClient
+        .get({
+            TableName: TABLE_NAME,
+            Key: {key:userId}
+        })
+        .promise();
+    if (!data.Item) throw Error(`No data found for key: ${key}`);
+    return data.Item.data;
 };
-const totoById=(id)=> {
-    return {id};
+
+const saveToDo=async (todos,userId)=>{
+    return saveData(todos,userId);
 };
-
-api.get("/version",()=>{return {version:"1.0.1"}});
-api.post("/todos",(request)=>  toto(request.body));
-api.post("/todo/{id}",(request)=>  totoById(request.pathParams.id));
-
+const getToDo=async (userId)=> {
+    return getData(userId);
+};
+api.get("/version",()=>{return {version:"1.0.4"}});
+api.post("/todos/{userId}",(request)=> saveToDo(request.body,request.pathParams.userId));
+api.get("/todos/{userId}",(request)=> getToDo(request.pathParams.userId));
 
 module.exports=api;
 

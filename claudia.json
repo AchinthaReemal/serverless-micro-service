@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "lambda-full-access",
+    "name": "rohanaonly-todo-api",
+    "region": "ap-southeast-1"
+  },
+  "api": {
+    "id": "jxj39bkb1f",
+    "module": "bin/index"
+  }
+}
