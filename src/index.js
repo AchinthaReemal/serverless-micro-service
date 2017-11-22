@@ -7,7 +7,7 @@ import API from 'claudia-api-builder';
 const AWS = require('aws-sdk');
 const api=new API();
 const documentClient = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME=`todo-rohanaonly-${process.env.ENV?process.env.ENV:''}`;
+const TABLE_NAME=`todo-rohana-${process.env.ENV?process.env.ENV:''}`;
 
 const saveData=async (record,userId)=>{
      await documentClient
@@ -39,9 +39,7 @@ const saveToDo=async (todos,userId)=>{
 const getToDo=async (userId)=> {
     return getData(userId);
 };
-api.get("/version",()=>{return {version:"1.0.4"}});
-api.post("/todos/{userId}",(request)=> saveToDo(request.body,request.pathParams.userId));
-api.get("/todos/{userId}",(request)=> getToDo(request.pathParams.userId));
+api.get("/version",()=>{return {version:"1.0.0"}});
 
 module.exports=api;
 

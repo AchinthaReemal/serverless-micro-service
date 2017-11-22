@@ -1,12 +1,10 @@
 {
-  "name": "rohana-todo-api",
-  "version": "1.0.0",
-  "description": "",
+  "name": "todo-api-rohana",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "transpile": "babel --presets es2015 --plugins async-to-promises src --out-dir bin",
-    "create-env-dev": "npm run transpile && claudia create --profile claudia --version dev --role lambda-full-access --config claudia-demo-dev.json --region ap-southeast-1 --api-module bin/index --timeout 120 --memory 128",
-    "update-env-dev": "npm run transpile && claudia update --profile claudia --version dev --role lambda-full-access --config claudia-demo-dev.json --region ap-southeast-1 --api-module bin/index --timeout 120 --memory 128"
+    "create-dev": "npm run transpile && claudia create --profile claudia --version dev --role lambda-full-access --config claudia.json --region ap-southeast-1 --api-module bin/index --timeout 120 --memory 128 --set-env ENV=dev",
+    "release-dev": "npm run transpile && claudia update --profile claudia --version dev --role lambda-full-access --config claudia.json --region ap-southeast-1 --api-module bin/index --timeout 120 --memory 128 --set-env ENV=dev",
+    "release-qa": "claudia set-version --profile claudia --version qa --config claudia.json --set-env ENV=qa"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -16,8 +14,6 @@
     "babel-preset-es2015": "^6.24.1",
     "claudia": "^2.14.2"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.152.0",
     "claudia-api-builder": "^2.5.1"

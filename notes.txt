@@ -1,0 +1,15 @@
+#AWS credentials:
+
+vi ~/.aws/credentials
+
+#Profile Name
+[claudia]
+aws_access_key_id=AKIAJIDQSL2TYA5YLOAA
+aws_secret_access_key=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
+
+#AWS account Login
+https://console.aws.amazon.com/
+789809199766/demo
+
+#Claudia git url
+https://github.com/rohanakumara/serverless-micro-service.git
