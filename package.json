@@ -1,5 +1,7 @@
 {
-  "name": "todo-api-rohana",
+
+  "name": "todo-api-rohanak",
+  "version": "1.0.0",
   "scripts": {
     "transpile": "babel --presets es2015 --plugins async-to-promises src --out-dir bin",
     "create-dev": "npm run transpile && claudia create --profile claudia --version dev --role lambda-full-access --config claudia.json --region ap-southeast-1 --api-module bin/index --timeout 120 --memory 128 --set-env ENV=dev",

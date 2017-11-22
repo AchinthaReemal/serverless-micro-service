@@ -4,10 +4,11 @@
 
 //import claudia rest api wrapper
 import API from 'claudia-api-builder';
-const AWS = require('aws-sdk');
 const api=new API();
+
+const AWS = require('aws-sdk');
 const documentClient = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME=`todo-rohana-${process.env.ENV?process.env.ENV:''}`;
+const TABLE_NAME=`todo-rohanak-${process.env.ENV?process.env.ENV:''}`;
 
 const saveData=async (record,userId)=>{
      await documentClient
@@ -39,7 +40,8 @@ const saveToDo=async (todos,userId)=>{
 const getToDo=async (userId)=> {
     return getData(userId);
 };
-api.get("/version",()=>{return {version:"1.0.0"}});
+
+api.get("/version",()=>{return {version:"1.0.0",env:process.env.ENV}});
 
 module.exports=api;
 
